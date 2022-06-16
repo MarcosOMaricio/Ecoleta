@@ -1,4 +1,3 @@
-
 function populateUFs(){
     const ufSelect = document.querySelector("select[name=uf]");
 
@@ -48,7 +47,7 @@ document
     .querySelector("select[name=uf]")
     .addEventListener("change", getCities)
 
-//itens de coleta Aula 3 = 00:24:17
+
 
 const itensToCollect = document.querySelectorAll(".itens-grid li")
 
@@ -56,11 +55,43 @@ for(const item of itensToCollect){
     item.addEventListener("click", handSelectedItem);
 }
 
+const collectedItens = document.querySelector("input[name=itens]")
+
+let selectedItens = []
+
 function handSelectedItem(event){
     //adcionar ou remover uma class com JS
     const itemLi = event.target
-
+    itemLi.classList.toggle("selected")
 
     const itemId = itemLi.dataset.id 
     console.log();
+
+    /*1.verificar se existem itens selecionados
+    2.se sim pegar os itens selecionados
+    3.se já estiver marcado, tirar da seleção
+    4.se não estiver seleiconado, adcionar a seleção
+    5.atualizar o campo escondido com os itens selecionados*/
+
+    const jaFoiSelecionado = selectedItens.findIndex((item)=>{
+        const acheiItem = item == itemId //true or false
+        return acheiItem
+    })
+
+    //2
+    if(jaFoiSelecionado >= 0){
+        //3
+        const filteredItens = selectedItens.filter( item => {
+            const itemIsDiferent = item != itemI //false
+            return false 
+        })
+
+        selectedItens = filteredItens
+    }else{
+        //4
+        selectedItens.push(itemId)
+    }
+
+    //5
+    collectedItens.value = selectedItens
 }
